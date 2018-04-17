@@ -1,0 +1,87 @@
+
+class Image {
+  
+  private String metadata; //should I make private?
+  private int maxRange;
+  private Pixel[][] data; //Image data. stores double array of pixels (pixel objects). array length = image height. subarray length = image width.
+  
+  //note: image class does not store format code i.e. (p3 (regular format) or p6(grey scale).
+  
+  Image(String metadata, int maxRange, Pixel[][] data) { // constructor. should i make private? ANS: NO. then can only instantiate from within static Image class method. 
+    //sidenote: 'return' can be used to stop constructor executrion. but wont return anything. 
+    
+    if (maxRange < 0) {
+      throw new IllegalArgumentException();
+    }
+    
+    this.metadata = metadata;
+    this.maxRange = maxRange;
+    this.data = data;  //is this storing a 'copy' of the input Pixel[][] array? Q2 #1
+    }
+  
+  String getMetadata() { //getter
+    return metadata; // is it best practice to use this?
+  } 
+  int getMaxRange() { //getter
+    return maxRange;
+  }
+  int getWidth() { //getter
+    return this.data[0].length; 
+  }
+  int getHeight() { //getter
+    return this.data.length; //reutrns Q5
+  }
+  Pixel getPixel(int i, int j) { //getter. get's image pixel at certain location. returns a Pixel object type
+    return this.data[i][j];
+  }
+  void flip(boolean horizontal) { //flip image over y axis
+     int width = getWidth();
+     int height = getHeight();
+     Pixel[][] temp2DArray = new Pixel[height][width];
+    
+    if (horizontal == true) { //flip image horizontalal = swap columns. 
+      
+      System.out.println("Printing temp array hight + width" + temp2DArray.length + " " + temp2DArray[0].length); //TEST.
+      
+      for(int h = 0; h < height; h++) {
+        for(int i = 0, j = (width - 1); j >= 0; i++, j--) { //stop when j is less than 0.
+          temp2DArray[h][i] = this.data[h][j];
+        }
+      }
+    }
+    if (horizontal == false) { //Flip Vertically
+      for(int h = 0, j = (height - 1); j >= 0; h++, j--) {
+          temp2DArray[h] = this.data[j]; //1st row of flipped image = last row of origional image. 
+        }
+      }
+      this.data = temp2DArray;
+  }
+  void toGrey() { //covert image to grey (meaning each pixel has 3 identical rgb values.) 
+    for (int i = 0; i < (this.data.length); i++) {
+      for (int h = 0; h < (this.data[i].length); h++) {
+        Pixel p = this.data[i][h]; //not creating new pixel, just isolating one
+        int avgInt = p.grey(); 
+        Pixel q = new Pixel(avgInt); //create new pixel
+        this.data[i][h] = q;
+        //this.data[i][h] = new Pixel(avgInt); Origional. Replaced by above 2 lines. 
+      }
+    }
+  }
+    void crop(int startX, int startY, int endX, int endY) { //NOTE start = inclusive, end = exclusive
+      if((startX|startY|endX|endY) < 0 || ((startX|endX) > this.data.length) || ((startY|endY) > data[0].length)) { //ensure coordinates are not beyond image row length or column length.?
+        throw new IllegalArgumentException();   //Q: can we assume crop input will not be exceed image dimensions? "crop a rectangular section of the origional image" = implicit answer: yes       
+      }
+      int croppedRowNum = endX - startX;
+      int croppedColumnNum = endY - startY;
+      
+      for (int i = 0; i < croppedRowNum; i++) { //cropping loop
+        for (int h = 0; h < croppedColumnNum; h++) { 
+          this.data[i][h] = this.data[startX + i][startY + h];
+        }
+      }
+    }
+      
+        
+      
+}
+    

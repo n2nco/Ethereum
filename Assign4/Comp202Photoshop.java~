@@ -1,0 +1,93 @@
+class Comp202Photoshop {
+  
+  public static void main(String[] args) {
+    /*int j = 0;
+    for(String i : args){
+      System.out.print(j + " " + i +", ");
+      j++;
+    } */
+    
+    if ((args.length < 4) || (args.length > 8)) {
+      System.out.println("Please input a minnimum of 4 arguments, and a maximum of 8");
+      return;
+    }
+    else if (!args[2].equals("pgm") && !args[2].equals("pnm")) {
+      System.out.println("Invalid output file format. Please enter pgm or pnm." + args[2]);
+      return;
+    }
+    else if (!args[3].equals("-fh") && !args[3].equals("-fv") && !args[3].equals("-gs") && !args[3].equals("-cr")) {
+      System.out.println("Invalid output operation entry. Please enter one of the following: -fh, -fv, -gs, -cr");
+      return;
+    }
+    
+    
+    String inputFile = args[0];
+    String outputFile = args[1];
+    String outputFormat = args[2];
+    String operation = args[3];
+    int startY = 0;
+    int startX = 0;
+    int endY = 0;
+    int endX = 0;
+    
+    if (args.length > 4) {
+    startY = Integer.parseInt(args[4]);
+    startX = Integer.parseInt(args[5]);
+    endY = Integer.parseInt(args[6]);
+    endX = Integer.parseInt(args[7]);
+    }
+    
+    Image newImage1 = null;
+    
+    try {
+    newImage1 = ImageFileUtilities.read(inputFile); // saving returned image. does this work? 
+    }
+    catch (Exception e) {
+      System.out.println("Exception caught on line 43: " + e);
+    }
+    
+    System.out.println(newImage1.getMetadata()); //testing
+    //newImage1.flip(true);
+    //newImage1.
+    
+     //where should this be?
+    
+    if(newImage1 != null) {
+   
+    if (operation.equals("-fh")) {
+      newImage1.flip(true);
+    }
+    else if (operation.equals("-fv")) {
+      newImage1.flip(false);
+    }
+    else if (operation.equals("-gs")) {
+      toGrey(newImage1);
+    //newImage1.toGrey();
+    }
+    else if (operation.equals("-cr")) {
+     try { 
+     newImage1.crop(startY, startX, endY, endX); // these include row/column zero
+     }
+     catch (Exception e) {
+       System.out.println("Exception caught: " + e); //better way to display exception?
+     }
+    }
+    
+    try{
+     if (outputFormat.equals("pgm")) {
+       ImageFileUtilities.writePgm(newImage1, outputFile);
+      }
+     else if (outputFormat.equals("pnm")) {
+       ImageFileUtilities.writePnm(newImage1, outputFile);
+       }
+    }
+    catch (Exception e) {
+      System.out.println("Exception caught: line 84  " + e);
+    }
+    }
+  }
+  static void toGrey(Image i) {
+    i.toGrey();
+    
+  }
+}

@@ -1,0 +1,18 @@
+class Runtime {
+  
+  public static void main(String args[]) {
+    
+    
+    int[] array = {1,2,3,4,5,6,7};
+    
+    long startTime = System.currentTimeMillis();
+    
+    for (x : array) {
+        
+      for (y:array) {
+            System.out.println(x + y);
+        }
+    
+long endTime   = System.currentTimeMillis();
+long totalTime = endTime - startTime;
+System.out.println(totalTime);

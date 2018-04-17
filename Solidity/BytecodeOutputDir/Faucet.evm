@@ -1,0 +1,118 @@
+    /* "faucet.sol":122:511  contract Faucet {... */
+  mstore(0x40, 0x60)
+  jumpi(tag_1, iszero(callvalue))
+  0x0
+  dup1
+  revert
+tag_1:
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x0
+  codecopy
+  0x0
+  return
+stop
+
+sub_0: assembly {
+        /* "faucet.sol":122:511  contract Faucet {... */
+      mstore(0x40, 0x60)
+      jumpi(tag_1, lt(calldatasize, 0x4))
+      calldataload(0x0)
+      0x100000000000000000000000000000000000000000000000000000000
+      swap1
+      div
+      0xffffffff
+      and
+      dup1
+      0x2e1a7d4d
+      eq
+      tag_2
+      jumpi
+    tag_1:
+      stop
+        /* "faucet.sol":186:439  function withdraw(uint withdraw_amount) public {... */
+    tag_2:
+      jumpi(tag_5, iszero(callvalue))
+      0x0
+      dup1
+      revert
+    tag_5:
+      tag_6
+      0x4
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap2
+      swap1
+      pop
+      pop
+      jump(tag_7)
+    tag_6:
+      stop
+    tag_7:
+        /* "faucet.sol":306:324  100000000000000000 */
+      0x16345785d8a0000
+        /* "faucet.sol":287:302  withdraw_amount */
+      dup2
+        /* "faucet.sol":287:324  withdraw_amount <= 100000000000000000 */
+      gt
+      iszero
+        /* "faucet.sol":279:325  require(withdraw_amount <= 100000000000000000) */
+      iszero
+      iszero
+      tag_9
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_9:
+        /* "faucet.sol":396:406  msg.sender */
+      caller
+        /* "faucet.sol":396:415  msg.sender.transfer */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "faucet.sol":396:432  msg.sender.transfer(withdraw_amount) */
+      0x8fc
+        /* "faucet.sol":416:431  withdraw_amount */
+      dup3
+        /* "faucet.sol":396:432  msg.sender.transfer(withdraw_amount) */
+      swap1
+      dup2
+      iszero
+      mul
+      swap1
+      mload(0x40)
+      0x0
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup6
+      dup9
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+      iszero
+      tag_10
+      jumpi
+      0x0
+      dup1
+      revert
+    tag_10:
+        /* "faucet.sol":186:439  function withdraw(uint withdraw_amount) public {... */
+      pop
+      jump	// out
+
+    auxdata: 0xa165627a7a7230582077968d36cb4446948392c3de581c5e46ebfa8594f3ae7612ac77fcc667bccdc80029
+}

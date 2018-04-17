@@ -1,0 +1,12 @@
+Bar{
+  private static int x;
+  private int y;
+   
+    
+    public void func(){ 
+    x = 3;//changes Bar.x// 
+    y = 3; //changes this.y} 
+    
+    public static void main(String[] args) { 
+      Bar b = new Bar();
+      b.func(); // call func on object since not static}

@@ -1,0 +1,14 @@
+class Test {
+ 
+  
+  int swap(int x, int y) {
+    int temp = x * y;
+    return temp;
+  }
+  
+  public static void main(String args[]) {
+    swap(4,6);
+    
+    
+  }
+}
